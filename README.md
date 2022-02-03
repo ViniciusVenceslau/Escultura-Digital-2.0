@@ -1,2 +1,2 @@
-# Escultura-Digital-1.0
-Projeto Escultura Digital parte 1.
+# Escultura-Digital-2.0
+Projeto Escultura Digital parte 2 (Estruturas Avançadas).
