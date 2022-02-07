@@ -6,13 +6,16 @@
 
 using namespace std;
 
+/**
+ * @Ler as insformações para implementar.
+ */
 class Interpretador{
     int dimx, dimy, dimz;
     float r, g, b, alpha;
 public:
-    Interpretador();
-    std::vector<FiguraGeometrica *>parse(std::string filename);
-    int getDimx();
+    Interpretador(); // Construtor.
+    std::vector<FiguraGeometrica *>parse(std::string filename); // Atribuição do interpretador a um vetor.
+    int getDimx(); // Chamada das dimensões.
     int getDimy();
     int getDimz();
 };
