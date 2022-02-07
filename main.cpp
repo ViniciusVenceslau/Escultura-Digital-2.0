@@ -16,24 +16,38 @@ using namespace std;
 
 int main(){
 
-    Sculptor *s1;
+    Sculptor *lightsaber; // Objetos.
 
     Interpretador parser;
-    vector<FiguraGeometrica*> figs;
 
+    vector<FiguraGeometrica*> figs; // Ponteiro para cada posição da variável "figs".
+
+/*
+ * @Interpretação do figs com a entrada do arquivo.
+ */
     figs = parser.parse((char*)"leitura.txt");
 
-    s1 = new Sculptor(parser.getDimx(), parser.getDimy(), parser.getDimz());
+/*
+ * @Definição do tamanho da matriz tridimensional através dos "gets" das dimensões.
+ * @Para alocação dinâmica de memória. 
+ */
+    lightsaber = new Sculptor(parser.getDimx(), parser.getDimy(), parser.getDimz());
 
+/*
+ * @Laços de repitação para percorrer a variável "figs".
+ */
     for(size_t i=0; i<figs.size(); i++){
-        figs[i]->draw(*s1);
+        figs[i] -> draw(*lightsaber); // Operador "arrow": Acessar os membros das estruturas através de ponteiros. 
     }
 
-    s1->writeOFF((char*)"lightsaberPARTE2.off");
+/*
+ * @Pega as informações que foram desenhadas/registradas no arquivo .txt e as tornam legíveis no visualizador/aplicativo 3D (.off). 
+ */
+    lightsaber -> writeOFF((char*)"lightsaberPARTE2.off");
 
     for(size_t i=0; i<figs.size(); i++){
         delete figs[i];
     }
-    delete s1;
+    delete lightsaber;
     return 0;
 }
