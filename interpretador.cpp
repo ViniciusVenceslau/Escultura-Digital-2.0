@@ -16,36 +16,47 @@
 
 using namespace std;
 
+/* 
+ * @Leitura/Interpretação do arquivo .txt de entrada.
+ */
 Interpretador::Interpretador(){
+
 }
 
+/*
+ * @Declaração do interpretador.
+ */
 std::vector<FiguraGeometrica *> Interpretador::parse(std::string filename){
 
-    std::vector<FiguraGeometrica*> figs;
-    std::ifstream fin;
-    std::stringstream ss;
+    std::vector<FiguraGeometrica*> figs; // Variável "figs" responsável por armazenar cada chamada da figura geométrica.
+    std::ifstream arq;
+    std::stringstream ss; // Inicialização das funções para leitura de dados.
     std::string s, token;
 
-    fin.open(filename.c_str());
-    if(!fin.is_open()){
+    arq.open(filename.c_str()); // Leitura do arquivo.
+    if(!arq.is_open()){
         cout << "Ocorreu um erro!" << endl;
         exit(0);
     }
-
-    while(fin.good()){
-        getline(fin, s);
-        if(fin.good()){
-            ss.clear();
-            ss.str(s);
-            ss >> token;
+/*
+ * @Laço de leitura enquanto existir linhas legíveis.
+ */
+    while(arq.good()){
+        getline(arq, s); // Verificação de cada linha.
+        if(arq.good()){
+            ss.clear(); // Limpando as informações de cada loop.
+            ss.str(s); // Cópia da string "s" para o fluxo "ss".
+            ss >> token; // Ler o primeiro conteúdo legível de cada linha do conteúdo de entrada.
             if(ss.good()){
-                if(token.compare("dim") == 0){
+                if(token.compare("dim") == 0){ // Compara se o conteúdo da string "token" é "dim".
                     ss >> dimx >> dimy >> dimz;
                 }
                 else if(token.compare("putvoxel") == 0){
                     int x, y, z;
                     ss >> x >> y >> z >> r >> g >> b >> alpha;
-                    figs.push_back(new PutVoxel(x, y, z, r, g, b, alpha));
+                    figs.push_back(new PutVoxel(x, y, z, r, g, b, alpha)); 
+                    // O método "push_back" adiciona uma posição no final do vetor.
+                    // Além de chamar o construtor da classe, fazendo alocação dinâmica.
                 }
                 else if(token.compare("cutvoxel") == 0){
                     int x, y, z;
@@ -85,10 +96,14 @@ std::vector<FiguraGeometrica *> Interpretador::parse(std::string filename){
             }
         }
     }
-
-    return(figs);
+    arq.close();
+    cout << "Arquivo do lightsaber gravado com sucesso!" << endl;
+    return(figs); // Retorno do conteúdo.
 }
 
+/*
+ * @Chamada dos métodos "get" para as dimensões a fim de criar a matriz tridimensional.
+ */
 int Interpretador::getDimx(){
     return dimx;
 }
